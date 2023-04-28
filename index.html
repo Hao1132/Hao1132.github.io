@@ -1,12 +1,49 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <title>cs18</title>
-  </head>
-  <body>
-    <h1>welcome to cs18</h1>
-    <button onclick="location.href='Time_final.html'">time slider</button>
-    <button onclick="location.href='SchoolviolenceMap.html'">heatmap</button>
-  </body>
+    <style>
+        /* 侧边导航栏样式 */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 150px;
+            height: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="timeslider.html">time slider</a></li>
+            <li><a href="heatmap.html">heatmap</a></li>
+        </ul>
+    </div>
+    <!-- 页面内容 -->
+    <div style="margin-left: 200px;">
+        <h1>Welcome to cs18!</h1>
+        <p>This is the result of our visualization.</p>
+    </div>
+</body>
 </html>
