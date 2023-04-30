@@ -1,49 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>cs18</title>
-    <style>
-        /* 侧边导航栏样式 */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 150px;
-            height: 100%;
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .sidebar ul li {
-            margin-bottom: 10px;
-        }
-        .sidebar ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-        .sidebar ul li a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport"
+  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CS18-1</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.5.6/css/layui.min.css">
 </head>
-<body>
-    <div class="sidebar">
-        <ul>
-            <li><a href="index.html">home</a></li>
-            <li><a href="timeslider.html">time slider</a></li>
-            <li><a href="heatmap.html">heatmap</a></li>
+<body class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+      <!-- 头部内容 -->
+      <div class="layui-logo">CS18-1</div>
+    </div>
+    <div class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+        <ul class="layui-nav layui-nav-tree" lay-filter="nav">
+          <li class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;" data-url="home.html">Home</a>
+          </li>
+          <li class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;">Introduction</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" data-url="Datasource.html">Data source</a></dd>
+              <dd><a href="javascript:;" data-url="ProjectBackground.html">Project Background</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">Visualization</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;" data-url="power.html">Chart</a></dd>
+              <dd><a href="javascript:;" data-url="SchoolviolenceMap.html">Heatmap</a></dd>
+              <dd><a href="javascript:;" data-url="Time_final.html">Circlemap</a></dd>
+            </dl>
+          </li>
         </ul>
+      </div>
     </div>
-    <!-- 页面内容 -->
-    <div style="margin-left: 200px;">
-        <h1>Welcome to cs18!</h1>
-        <p>This is the result of our visualization.</p>
+    <div class="layui-body">
+      <!-- 主体内容 -->
+      <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="true">
+        <ul class="layui-tab-title">
+          <li class="layui-this" data-url="home.html">Home</li>
+        </ul>
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+            <iframe src="home.html" frameborder="0" class="layui-iframe" style="width:100%;height:770px;"></iframe>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="layui-footer" style="text-align:center;">
+      <!-- 底部内容 -->
+      DATA5703@CS18-1
+    </div>
+  </div>
+  <script src="https://cdn.staticfile.org/layui/2.5.6/layui.min.js"></script>
+  <script>
+    //JavaScript代码区域
+    layui.use(['element', 'jquery'], function(){
+      var element = layui.element;
+      var $ = layui.jquery;
+      var tabTitle = $('.layui-tab-title');
+      var tabContent = $('.layui-tab-content');
+      //监听导航栏的点击事件
+      element.on('nav(nav)', function(elem){
+        //获取菜单名称和URL
+        var menuName = elem.text();
+        var url = elem.data('url');
+        //判断是否为首页
+        if(menuName === 'Home'){
+          $('.layui-tab-title li:first').click();
+        }else if(elem.siblings().length > 0){
+          //父菜单不显示新tab页
+          return;
+        }
+        //查找是否已经存在该tab页
+        var existTab = tabTitle.find('li[data-url="' + url + '"]');
+        if(existTab.length > 0){
+          //已存在该tab页，直接切换到该tab页
+          existTab.click();
+          return;
+        }
+        //添加新的tab页
+        tabTitle.append('<li data-url="' + url + '">' + menuName + '</li>');
+        tabContent.append('<div class="layui-tab-item"><iframe src="' + url + '" frameborder="0" " style="width:100%;height:770px;"></iframe></div>');
+        //重新渲染tab页
+        element.render('tab');
+        //切换到新添加的tab页
+        tabTitle.find('li:last').click();
+      });
+    });
+  </script>
 </body>
 </html>
